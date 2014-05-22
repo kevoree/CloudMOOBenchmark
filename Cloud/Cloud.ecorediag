@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_VEADgOGtEeOxUJ2ECMuYsA" type="EcoreTools" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_V2q2kOGtEeOxUJ2ECMuYsA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_V2sEsOGtEeOxUJ2ECMuYsA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_V2sEseGtEeOxUJ2ECMuYsA" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_V2sEsuGtEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_V2sEs-GtEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_V2sEtOGtEeOxUJ2ECMuYsA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_V2srwOGtEeOxUJ2ECMuYsA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_V2srweGtEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_V2srwuGtEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_V2srw-GtEeOxUJ2ECMuYsA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_V2q2keGtEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="Cloud.ecore#//Cloud"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_V2q2kuGtEeOxUJ2ECMuYsA" x="384" y="144"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_UADGoOHCEeOxUJ2ECMuYsA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_UAEUwOHCEeOxUJ2ECMuYsA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_UAEUweHCEeOxUJ2ECMuYsA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_VfGekOHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//PerfMetric/currentCPU"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VfGekeHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_XzHvoOHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//PerfMetric/currentRAM"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_XzHvoeHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_ZF_FsOHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//PerfMetric/currentNetwork"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ZF_FseHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_aOdwsOHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//PerfMetric/currentDisk"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_aOdwseHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UAEUwuHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UAEUw-HCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UAEUxOHCEeOxUJ2ECMuYsA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_UAE70OHCEeOxUJ2ECMuYsA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UAE70eHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UAE70uHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UAE70-HCEeOxUJ2ECMuYsA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_UADGoeHCEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="Cloud.ecore#//PerfMetric"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UADGouHCEeOxUJ2ECMuYsA" x="672" y="384"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_isnBsOHCEeOxUJ2ECMuYsA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_isnowOHCEeOxUJ2ECMuYsA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_isnoweHCEeOxUJ2ECMuYsA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_k3tAQOHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//VM/vmTypeId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_k3tAQeHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_3I6t0OHCEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//VM/vmId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_3I6t0eHCEeOxUJ2ECMuYsA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_isnowuHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_isnow-HCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_isnoxOHCEeOxUJ2ECMuYsA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_isnoxeHCEeOxUJ2ECMuYsA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_isnoxuHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_isnox-HCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_isnoyOHCEeOxUJ2ECMuYsA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_isnBseHCEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="Cloud.ecore#//VM"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_isnBsuHCEeOxUJ2ECMuYsA" x="372" y="300"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_04zsYOHCEeOxUJ2ECMuYsA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_0406gOHCEeOxUJ2ECMuYsA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_0406geHCEeOxUJ2ECMuYsA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_A-UssOHDEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//Software/softwareTypeId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_A-UsseHDEeOxUJ2ECMuYsA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_ClHEUOHDEeOxUJ2ECMuYsA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Cloud.ecore#//Software/softwareId"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ClHEUeHDEeOxUJ2ECMuYsA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_0406guHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0406g-HCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0406hOHCEeOxUJ2ECMuYsA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_041hkOHCEeOxUJ2ECMuYsA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_041hkeHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_041hkuHCEeOxUJ2ECMuYsA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_041hk-HCEeOxUJ2ECMuYsA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_04zsYeHCEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="Cloud.ecore#//Software"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_04zsYuHCEeOxUJ2ECMuYsA" x="372" y="552"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_VEAqkOGtEeOxUJ2ECMuYsA"/>
+  <element xmi:type="ecore:EPackage" href="Cloud.ecore#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_sFv7UOHCEeOxUJ2ECMuYsA" type="3003" source="_isnBsOHCEeOxUJ2ECMuYsA" target="_UADGoOHCEeOxUJ2ECMuYsA">
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_sFv7UeHCEeOxUJ2ECMuYsA" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_sFv7UuHCEeOxUJ2ECMuYsA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sFv7U-HCEeOxUJ2ECMuYsA" points="[8, -5, -24, 110]$[-57, -68, -89, 47]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sGNOUOHCEeOxUJ2ECMuYsA" id="(0.2589928057553957,0.11764705882352941)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_HOecIOHDEeOxUJ2ECMuYsA" type="3002" source="_isnBsOHCEeOxUJ2ECMuYsA" target="_04zsYOHCEeOxUJ2ECMuYsA">
+    <children xmi:type="notation:Node" xmi:id="_HOfDMOHDEeOxUJ2ECMuYsA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_HOfDMeHDEeOxUJ2ECMuYsA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_HOfDMuHDEeOxUJ2ECMuYsA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_HOfDM-HDEeOxUJ2ECMuYsA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_HOecIeHDEeOxUJ2ECMuYsA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_HOecIuHDEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="Cloud.ecore#//VM/softwares"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HOecI-HDEeOxUJ2ECMuYsA" points="[8, 33, 3, -87]$[49, 87, 44, -33]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_NMZzIOHDEeOxUJ2ECMuYsA" type="3003" source="_04zsYOHCEeOxUJ2ECMuYsA" target="_UADGoOHCEeOxUJ2ECMuYsA">
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_NMZzIeHDEeOxUJ2ECMuYsA" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_NMZzIuHDEeOxUJ2ECMuYsA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_NMZzI-HDEeOxUJ2ECMuYsA" points="[4, -2, -180, 119]$[185, -170, 1, -49]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_NMc2cOHDEeOxUJ2ECMuYsA" id="(0.7267441860465116,0.04411764705882353)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_NMc2ceHDEeOxUJ2ECMuYsA" id="(0.04419889502762431,0.49019607843137253)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_PGZaoOHDEeOxUJ2ECMuYsA" type="3002" source="_V2q2kOGtEeOxUJ2ECMuYsA" target="_isnBsOHCEeOxUJ2ECMuYsA">
+    <children xmi:type="notation:Node" xmi:id="_PGaowOHDEeOxUJ2ECMuYsA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_PGaoweHDEeOxUJ2ECMuYsA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_PGaowuHDEeOxUJ2ECMuYsA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_PGaow-HDEeOxUJ2ECMuYsA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_PGaBsOHDEeOxUJ2ECMuYsA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_PGaBseHDEeOxUJ2ECMuYsA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="Cloud.ecore#//Cloud/machines"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_PGaBsuHDEeOxUJ2ECMuYsA" points="[9, 21, 2, -115]$[9, 136, 2, 0]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_PGeTIOHDEeOxUJ2ECMuYsA" id="(0.5107913669064749,0.0)"/>
+  </edges>
+</notation:Diagram>
