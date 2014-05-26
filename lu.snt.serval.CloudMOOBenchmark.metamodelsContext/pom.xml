@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>lu.snt.serval.CloudMOOBenchmark.root</artifactId>
+        <groupId>lu.snt.serval.CloudMOOBenchmark</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../lu.snt.serval.CloudMOOBenchmark.root/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
+    <artifactId>lu.snt.serval.CloudMOOBenchmark.metamodelsContext</artifactId>
+    <name>Serval :: CloudMOOBenchmark :: MetamodelContext</name>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.kevoree.modeling</groupId>
+            <artifactId>org.kevoree.modeling.microframework</artifactId>
+            <version>${kmf.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.kevoree.modeling</groupId>
+                <artifactId>org.kevoree.modeling.kotlin.generator.mavenplugin</artifactId>
+                <version>${kmf.version}</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>ModelGen</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <ecore>metamodel/CloudContext.ecore</ecore>
+                            <clearOutput>false</clearOutput>
+                            <packagePrefix>lu.snt.serval</packagePrefix>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
