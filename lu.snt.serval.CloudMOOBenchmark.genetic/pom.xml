@@ -20,30 +20,15 @@
 
         <dependency>
             <groupId>lu.snt.serval.CloudMOOBenchmark</groupId>
-            <artifactId>lu.snt.serval.CloudMOOBenchmark.metamodel</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.kevoree.log</groupId>
-            <artifactId>org.kevoree.log</artifactId>
-            <version>1</version>
+            <artifactId>lu.snt.serval.CloudMOOBenchmark.metamodels</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
             <dependency>
                 <groupId>org.kevoree.modeling.optimization</groupId>
                 <artifactId>org.kevoree.modeling.optimization.framework.core</artifactId>
                 <version>2.0.0-SNAPSHOT</version>
             </dependency>
-        <dependency>
-            <groupId>org.kevoree</groupId>
-            <artifactId>org.kevoree.model</artifactId>
-            <version>3.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.kevoree</groupId>
-            <artifactId>org.kevoree.kevscript</artifactId>
-            <version>3.4.0</version>
-        </dependency>
+
             <dependency>
                 <groupId>org.kevoree.modeling.optimization</groupId>
                 <artifactId>org.kevoree.modeling.optimization.engine.genetic</artifactId>
@@ -55,41 +40,4 @@
                 <version>2.0.0-SNAPSHOT</version>
             </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.kevoree.modeling.api</pattern>
-                            <shadedPattern>org.kevoree.shaded.modeling.api</shadedPattern>
-                            <excludes>
-                                <exclude>org.kevoree.modeling.api.KMFContainer</exclude>
-                            </excludes>
-                        </relocation>
-                    </relocations>
-                    <artifactSet>
-                        <includes>
-                            <include>lu.snt.serval.pla:lu.snt.serval.pla.metamodels</include>
-                            <include>org.kevoree.modeling:org.kevoree.modeling.microframework</include>
-                        </includes>
-                    </artifactSet>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-
-
 </project>
