@@ -1,5 +1,7 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic;
 
+import lu.snt.serval.cloudcontext.*;
+
 /**
  * User: assaad.moawad
  * Date: 2/7/14
@@ -7,37 +9,72 @@ package lu.snt.serval.CloudMOOBenchmark.genetic;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-import kotlin._Assertions;
-import lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses.UtilFitness;
-import lu.snt.serval.CloudMOOBenchmark.genetic.mutators.DeleteBlurMutator;
-import lu.snt.serval.cloud.Cloud;
-import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
-import org.kevoree.modeling.optimization.api.metric.ParetoFitnessMetrics;
-import org.kevoree.modeling.optimization.api.metric.ParetoMetrics;
-import org.kevoree.modeling.optimization.api.solution.Solution;
-import org.kevoree.modeling.optimization.engine.genetic.GeneticAlgorithm;
-import org.kevoree.modeling.optimization.engine.genetic.GeneticEngine;
-import org.kevoree.modeling.optimization.executionmodel.ExecutionModel;
-import org.kevoree.modeling.optimization.util.ExecutionModelExporter;
 
 
-import java.io.File;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-/**
- * Created with IntelliJ IDEA.
- * User: duke
- * Date: 07/08/13
- * Time: 16:00
- */
 public class SampleRunner {
 
 
-    public static void main(String[] args) throws Exception {
 
-        for(int i=0; i<100; i++)
+    public static void display(CloudContext cc){
+        System.out.println("Cloud providers");
+        for(CloudProvider cp: cc.getCloudProviders()){
+            System.out.println(cp.getName());
+            for(VirtualMachine vm:cp.getVirtualMachines()){
+                System.out.println("  ---- "+vm.getName()+" cpu:"+vm.getCpu()+ " Ram:"+vm.getRam()+" Disk"+vm.getDisk()+" price:"+vm.getPrice());
+            }
+        }
+
+        System.out.println();
+        System.out.println("Latencies");
+        for(Latency l: cc.getLatencies()){
+            System.out.println(l.getFrom().getName()+" ->"+l.getTo().getName()+": "+l.getDelay()+" ms");
+        }
+
+
+        System.out.println();
+        System.out.println("Software database");
+        for(Software s: cc.getSoftwares()){
+            System.out.println(s.getName()+" CPU: "+s.getCpuPerUser()+" RAM: "+s.getRamPerUser());
+            for(Software t:s.getDependencies()){
+                System.out.println("  ---- "+t.getName());
+            }
+        }
+
+        System.out.println();
+        System.out.println("Softwares to run");
+       for(SoftwareToRun str: cc.getSoftwarestoRun()){
+           System.out.println(str.getSoftware().getName()+" :"+str.getUsers()+" users");
+       }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        CloudContext cc=ContextLoader.load();
+        display(cc);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /*     for(int i=0; i<100; i++)
         {
         GeneticEngine<Cloud> engine = new GeneticEngine<Cloud>();
 
@@ -62,7 +99,7 @@ public class SampleRunner {
 
         engine.addFitnessMetric(new ExecutionTime(), ParetoFitnessMetrics.MIN);
         engine.addFitnessMetric(new ExecutionTime(), ParetoFitnessMetrics.MAX);
-        engine.addFitnessMetric(new ExecutionTime(), ParetoFitnessMetrics.MEAN);*/
+        engine.addFitnessMetric(new ExecutionTime(), ParetoFitnessMetrics.MEAN);
         //engine.addFitnessMetric(new ExecutionTime(), ParetoFitnessMetrics.MEAN);
 
 
@@ -89,7 +126,7 @@ public class SampleRunner {
 
         ExecutionModel model = engine.getExecutionModel();
         ExecutionModelExporter.instance$.exportMetrics(model,new File("results"));
-        }
+        }*/
 
 
 

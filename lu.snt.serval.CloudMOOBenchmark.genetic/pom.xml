@@ -23,6 +23,11 @@
             <artifactId>lu.snt.serval.CloudMOOBenchmark.metamodels</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>lu.snt.serval.CloudMOOBenchmark</groupId>
+            <artifactId>lu.snt.serval.CloudMOOBenchmark.metamodelsContext</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
             <dependency>
                 <groupId>org.kevoree.modeling.optimization</groupId>
                 <artifactId>org.kevoree.modeling.optimization.framework.core</artifactId>

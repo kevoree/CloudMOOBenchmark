@@ -6,10 +6,6 @@
         eType="#//CloudProvider" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="softwares" upperBound="-1"
         eType="#//Software" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="latencies" upperBound="-1"
-        eType="#//Latency" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="softwarestoRun" upperBound="-1"
-        eType="#//SoftwareToRun" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CloudProvider">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -43,14 +39,4 @@
         eType="#//Requirement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Requirement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Latency">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="delay" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="from" lowerBound="1" eType="#//CloudProvider"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="to" lowerBound="1" eType="#//CloudProvider"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SoftwareToRun">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="software" lowerBound="1"
-        eType="#//Software"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="users" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
 </ecore:EPackage>

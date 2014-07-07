@@ -1,0 +1,10 @@
+#From, to, latency
+Amazon , Google , 300
+Amazon , Microsoft , 200
+Amazon , Amazon , 3
+Microsoft , Google , 100
+Microsoft , Amazon , 200
+Microsoft , Microsoft , 5
+Google , Amazon , 300
+Google , Microsoft , 100
+Google , Google , 10

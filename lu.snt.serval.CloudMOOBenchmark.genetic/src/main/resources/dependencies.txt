@@ -1,0 +1,17 @@
+#Dependency from, Dependency to - Circular dependencies are not checked!!
+SoftwareA , SoftwareV
+SoftwareA , SoftwareZ
+SoftwareB , SoftwareK
+SoftwareB , SoftwareP
+SoftwareD , SoftwareA
+SoftwareH , SoftwareP
+SoftwareJ , SoftwareS
+SoftwareK , SoftwareZ
+SoftwareM , SoftwareV
+SoftwareN , SoftwareU
+SoftwareO , SoftwareI
+SoftwareO , SoftwareW
+SoftwareP , SoftwareI
+SoftwareR , SoftwareY
+SoftwareU , SoftwareB
+SoftwareX , SoftwareD
