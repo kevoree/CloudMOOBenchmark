@@ -2,4 +2,6 @@
 SoftwareA , 30000
 SoftwareB , 100000
 SoftwareC , 250000
-SoftwareR , 10000
+SoftwareR , 100000
+SoftwareY , 1000
+SoftwareZ , 400000

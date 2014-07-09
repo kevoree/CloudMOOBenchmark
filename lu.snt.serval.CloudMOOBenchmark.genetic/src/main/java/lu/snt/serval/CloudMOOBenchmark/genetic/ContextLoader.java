@@ -62,6 +62,7 @@ public class ContextLoader {
                    vm.setPrice(Double.parseDouble(price));
                }
                vm.setCloudProvider(cp);
+
            }
 
            System.out.println("cloud loaded");

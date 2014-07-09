@@ -1,6 +1,12 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic;
 
-import lu.snt.serval.cloudcontext.*;
+import lu.snt.serval.CloudMOOBenchmark.genetic.mutators.*;
+import lu.snt.serval.cloud.Cloud;
+import lu.snt.serval.cloud.LoadBalancer;
+import lu.snt.serval.cloudcontext.CloudContext;
+import org.kevoree.modeling.optimization.api.mutation.MutationParameters;
+
+import java.util.Scanner;
 
 /**
  * User: assaad.moawad
@@ -14,43 +20,77 @@ import lu.snt.serval.cloudcontext.*;
 public class SampleRunner {
 
 
+    public static void test(){
+        Scanner userInputScanner = new Scanner(System.in);
+        System.out.println("Displaying the cloud context");
+        ContextUtilities.displayCloudContext();
+        userInputScanner.nextLine();
 
-    public static void display(CloudContext cc){
-        System.out.println("Cloud providers");
-        for(CloudProvider cp: cc.getCloudProviders()){
-            System.out.println(cp.getName());
-            for(VirtualMachine vm:cp.getVirtualMachines()){
-                System.out.println("  ---- "+vm.getName()+" cpu:"+vm.getCpu()+ " Ram:"+vm.getRam()+" Disk"+vm.getDisk()+" price:"+vm.getPrice());
-            }
-        }
+        CloudPopulationFactory cpf = new CloudPopulationFactory().setSize(1);
+        Cloud cloud = cpf.createPopulation().get(0);
 
-        System.out.println();
-        System.out.println("Latencies");
-        for(Latency l: cc.getLatencies()){
-            System.out.println(l.getFrom().getName()+" ->"+l.getTo().getName()+": "+l.getDelay()+" ms");
-        }
+        System.out.println("Displaying initial population");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        AddVm addVm = new AddVm();
+        addVm.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying Add Vm Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        AssignLoadToVm asvm = new AssignLoadToVm();
+        asvm.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying Assigning load to Vm Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        UnassignLoadToVm unasvm = new UnassignLoadToVm();
+        unasvm.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying unassigning load to  Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        DivideLoad dl = new DivideLoad();
+        dl.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying Divide load Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        CombineLoad cl = new CombineLoad();
+        cl.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying Combine load Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
+
+        RemoveVm rv = new RemoveVm();
+        rv.mutate(cloud,new MutationParameters());
+        System.out.println("Displaying Remove vm Mutator");
+        ContextUtilities.displayCloud(cloud);
+        userInputScanner.nextLine();
 
 
-        System.out.println();
-        System.out.println("Software database");
-        for(Software s: cc.getSoftwares()){
-            System.out.println(s.getName()+" CPU: "+s.getCpuPerUser()+" RAM: "+s.getRamPerUser());
-            for(Software t:s.getDependencies()){
-                System.out.println("  ---- "+t.getName());
-            }
-        }
 
-        System.out.println();
-        System.out.println("Softwares to run");
-       for(SoftwareToRun str: cc.getSoftwarestoRun()){
-           System.out.println(str.getSoftware().getName()+" :"+str.getUsers()+" users");
-       }
+
+
+
 
     }
 
+
+
+
     public static void main(String[] args) throws Exception {
         CloudContext cc=ContextLoader.load();
-        display(cc);
+        ContextUtilities.cloudContext=cc;
+
+        //test();
+
+
+
+
+
+
 
 
 
