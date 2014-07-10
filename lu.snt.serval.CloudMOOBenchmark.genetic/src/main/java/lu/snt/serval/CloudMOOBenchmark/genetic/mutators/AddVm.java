@@ -40,12 +40,14 @@ public class AddVm implements MutationOperator<Cloud> {
            VirtualMachine vm= ContextUtilities.getRandomMachine();
             VmInstance vmInstance= dcf.createVmInstance();
             vmInstance.setVirtualMachineName(vm.getName());
+            vmInstance.setCloudProviderName(vm.getCloudProvider().getName());
             vmInstance.setPrice(vm.getPrice());
             ResourceMetric ressourceMetric = dcf.createResourceMetric();
             ressourceMetric.setCpu(vm.getCpu());
             ressourceMetric.setDisk(vm.getDisk());
             ressourceMetric.setRam(vm.getRam());
             ressourceMetric.setNetwork(vm.getNetwork());
+            model.addResources(ressourceMetric);
             vmInstance.setResource(ressourceMetric);
 
             model.addVmInstances(vmInstance);

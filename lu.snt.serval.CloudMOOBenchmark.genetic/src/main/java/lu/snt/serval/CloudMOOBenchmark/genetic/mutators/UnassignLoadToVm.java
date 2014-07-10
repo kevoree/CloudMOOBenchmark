@@ -1,9 +1,7 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic.mutators;
 
 import jet.runtime.typeinfo.JetValueParameter;
-import lu.snt.serval.CloudMOOBenchmark.genetic.ContextUtilities;
 import lu.snt.serval.cloud.Cloud;
-import lu.snt.serval.cloud.ResourceMetric;
 import lu.snt.serval.cloud.SoftwareThread;
 import lu.snt.serval.cloud.VmInstance;
 import lu.snt.serval.cloud.impl.DefaultCloudFactory;
@@ -13,7 +11,6 @@ import org.kevoree.modeling.optimization.api.mutation.MutationParameters;
 import org.kevoree.modeling.optimization.api.mutation.MutationVariable;
 import org.kevoree.modeling.optimization.api.mutation.QueryVar;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

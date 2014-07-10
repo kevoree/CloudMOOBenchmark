@@ -9,6 +9,7 @@ import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
 import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: assaad.moawad
@@ -17,11 +18,11 @@ import java.util.ArrayList;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class AssignementFitness extends FitnessFunction<Cloud> {
+public class AssignmentFitness extends FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
-        ArrayList<SoftwareThread> allThreads = ContextUtilities.getAllThreads(model);
+        List<SoftwareThread> allThreads = model.getSoftwareThreads();
         ArrayList<SoftwareThread> unassigned = ContextUtilities.getUnassignedThreads(model,null);
 
         int total=0;

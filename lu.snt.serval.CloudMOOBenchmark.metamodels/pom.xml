@@ -23,6 +23,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
@@ -39,6 +40,8 @@
                         <configuration>
                             <ecore>metamodel/cloud.ecore</ecore>
                             <packagePrefix>lu.snt.serval</packagePrefix>
+                            <events>true</events>
+
                         </configuration>
                     </execution>
                 </executions>

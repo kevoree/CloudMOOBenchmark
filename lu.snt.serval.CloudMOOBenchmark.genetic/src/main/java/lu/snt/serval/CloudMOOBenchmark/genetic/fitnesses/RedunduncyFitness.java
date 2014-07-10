@@ -1,9 +1,8 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses;
 
 
-import lu.snt.serval.CloudMOOBenchmark.genetic.ContextUtilities;
 import lu.snt.serval.cloud.Cloud;
-import lu.snt.serval.cloud.VmInstance;
+import lu.snt.serval.cloud.LoadBalancer;
 import org.kevoree.modeling.optimization.api.GenerationContext;
 import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
 import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
@@ -15,20 +14,26 @@ import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class PriceFitness extends FitnessFunction<Cloud> {
+public class RedunduncyFitness extends FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
         double total=0;
-        for(VmInstance vmInstance: model.getVmInstances()){
-            total+=vmInstance.getPrice();
+        for(LoadBalancer lb: model.getLoadBalancers()){
+            total+=lb.getSoftwareThreads().size();
         }
+        if(total!=0)
+            total=model.getLoadBalancers().size()/total;
+        else
+            total=1;
+
+
         return total;
     }
 
     @Override
     public double max() {
-        return ContextUtilities.getMaxPrice();
+        return 1;
     }
 
     @Override

@@ -3,6 +3,7 @@ package lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses;
 
 import lu.snt.serval.CloudMOOBenchmark.genetic.ContextUtilities;
 import lu.snt.serval.cloud.Cloud;
+import lu.snt.serval.cloud.ResourceMetric;
 import lu.snt.serval.cloud.VmInstance;
 import org.kevoree.modeling.optimization.api.GenerationContext;
 import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
@@ -15,20 +16,23 @@ import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class PriceFitness extends FitnessFunction<Cloud> {
+public class RamUsageFitness extends FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
         double total=0;
         for(VmInstance vmInstance: model.getVmInstances()){
-            total+=vmInstance.getPrice();
+            ResourceMetric rm = ContextUtilities.getUsedResource(vmInstance);
+            total+= rm.getRam()/vmInstance.getResource().getRam();
         }
+        if(model.getVmInstances().size()!=0)
+            total = total/model.getVmInstances().size();
         return total;
     }
 
     @Override
     public double max() {
-        return ContextUtilities.getMaxPrice();
+        return 1;
     }
 
     @Override
@@ -38,6 +42,6 @@ public class PriceFitness extends FitnessFunction<Cloud> {
 
 
     public FitnessOrientation orientation() {
-        return FitnessOrientation.MINIMIZE;
+        return FitnessOrientation.MAXIMIZE;
     }
 }

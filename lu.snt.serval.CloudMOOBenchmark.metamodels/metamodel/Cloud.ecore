@@ -8,6 +8,10 @@
         eType="#//VmInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="loadBalancers" upperBound="-1"
         eType="#//LoadBalancer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//ResourceMetric" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="softwareThreads" upperBound="-1"
+        eType="#//SoftwareThread" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VmInstance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="virtualMachineName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -16,10 +20,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="resource" lowerBound="1"
         eType="#//ResourceMetric"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cloudProviderName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoadBalancer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="softwareThreads" upperBound="-1"
-        eType="#//SoftwareThread" containment="true"/>
+        eType="#//SoftwareThread"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="softwareToRunName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="users" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
@@ -31,7 +36,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="softwareName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="users" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resource" lowerBound="1"
-        eType="#//ResourceMetric" containment="true"/>
+        eType="#//ResourceMetric"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResourceMetric">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cpu" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>

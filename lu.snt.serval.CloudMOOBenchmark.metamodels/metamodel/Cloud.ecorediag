@@ -14,7 +14,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_sjGjoQc7EeSM9csC2eEhGQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="cloud.ecore#//Cloud"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sjGjogc7EeSM9csC2eEhGQ" x="287" y="71"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sjGjogc7EeSM9csC2eEhGQ" x="288" y="48"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_ubjTAAc7EeSM9csC2eEhGQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_ubjTAwc7EeSM9csC2eEhGQ" type="4001"/>
@@ -22,6 +22,10 @@
       <children xmi:type="notation:Node" xmi:id="_GIb_EAc8EeSM9csC2eEhGQ" type="2001">
         <element xmi:type="ecore:EAttribute" href="cloud.ecore#//VmInstance/virtualMachineName"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_GIb_EQc8EeSM9csC2eEhGQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_t4z70AgLEeS-BtcD7roGUA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="cloud.ecore#//VmInstance/cloudProviderName"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_t4z70QgLEeS-BtcD7roGUA"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_5H5kUAdkEeSM9csC2eEhGQ" type="2001">
         <element xmi:type="ecore:EAttribute" href="cloud.ecore#//VmInstance/price"/>
@@ -38,7 +42,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_ubjTAQc7EeSM9csC2eEhGQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="cloud.ecore#//VmInstance"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ubjTAgc7EeSM9csC2eEhGQ" x="144" y="192"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ubjTAgc7EeSM9csC2eEhGQ" x="72" y="228"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_xR-tkAc7EeSM9csC2eEhGQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_xR-tkwc7EeSM9csC2eEhGQ" type="4001"/>
@@ -118,7 +122,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_nPQZsQdiEeSM9csC2eEhGQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="cloud.ecore#//ResourceMetric"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nPQZsgdiEeSM9csC2eEhGQ" x="180" y="360"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nPQZsgdiEeSM9csC2eEhGQ" x="744" y="108"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_xY8lYQaEEeSJYZ4ibx_DiQ"/>
   <element xmi:type="ecore:EPackage" href="cloud.ecore#/"/>
@@ -225,7 +229,34 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_61INEQdiEeSM9csC2eEhGQ" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_61INEgdiEeSM9csC2eEhGQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="cloud.ecore#//VmInstance/resource"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_61INEwdiEeSM9csC2eEhGQ" points="[-2, 25, 9, -135]$[-10, 144, 1, -16]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_61INEwdiEeSM9csC2eEhGQ" points="[-34, 33, -23, -118]$[-40, 39, -29, -112]$[-16, 135, -5, -16]"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_61JbMAdiEeSM9csC2eEhGQ" id="(0.39416058394160586,0.16666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_0xrM4AgSEeS-BtcD7roGUA" type="3002" source="_sjGjoAc7EeSM9csC2eEhGQ" target="_nPQZsAdiEeSM9csC2eEhGQ">
+    <children xmi:type="notation:Node" xmi:id="_0xrz8AgSEeS-BtcD7roGUA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0xrz8QgSEeS-BtcD7roGUA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_0xrz8ggSEeS-BtcD7roGUA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0xrz8wgSEeS-BtcD7roGUA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_0xrM4QgSEeS-BtcD7roGUA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_0xrM4ggSEeS-BtcD7roGUA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="cloud.ecore#//Cloud/resources"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0xrM4wgSEeS-BtcD7roGUA" points="[8, 1, -360, -31]$[369, 17, 1, -15]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0xtCEAgSEeS-BtcD7roGUA" id="(0.9215686274509803,0.5116279069767442)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0xtCEQgSEeS-BtcD7roGUA" id="(0.029197080291970802,0.1568627450980392)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_Eewe4AgVEeS-BtcD7roGUA" type="3002" source="_sjGjoAc7EeSM9csC2eEhGQ" target="_5xyygAc7EeSM9csC2eEhGQ">
+    <children xmi:type="notation:Node" xmi:id="_EexF8AgVEeS-BtcD7roGUA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EexF8QgVEeS-BtcD7roGUA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_EexF8ggVEeS-BtcD7roGUA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_EexF8wgVEeS-BtcD7roGUA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_Eewe4QgVEeS-BtcD7roGUA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Eewe4ggVEeS-BtcD7roGUA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="cloud.ecore#//Cloud/softwareThreads"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Eewe4wgVEeS-BtcD7roGUA" points="[8, 21, -102, -238]$[111, 232, 1, -27]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_EeyUEAgVEeS-BtcD7roGUA" id="(0.24404761904761904,0.4117647058823529)"/>
   </edges>
 </notation:Diagram>

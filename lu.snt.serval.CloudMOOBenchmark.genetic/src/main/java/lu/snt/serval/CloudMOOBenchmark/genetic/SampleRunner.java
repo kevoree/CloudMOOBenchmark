@@ -1,12 +1,19 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic;
 
+import lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses.*;
 import lu.snt.serval.CloudMOOBenchmark.genetic.mutators.*;
 import lu.snt.serval.cloud.Cloud;
-import lu.snt.serval.cloud.LoadBalancer;
 import lu.snt.serval.cloudcontext.CloudContext;
+import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
 import org.kevoree.modeling.optimization.api.mutation.MutationParameters;
+import org.kevoree.modeling.optimization.api.solution.Solution;
+import org.kevoree.modeling.optimization.engine.genetic.GeneticAlgorithm;
+import org.kevoree.modeling.optimization.engine.genetic.GeneticEngine;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * User: assaad.moawad
@@ -84,9 +91,47 @@ public class SampleRunner {
         CloudContext cc=ContextLoader.load();
         ContextUtilities.cloudContext=cc;
 
-        //test();
+        test();
+
+        GeneticEngine<Cloud> engine = new GeneticEngine<Cloud>();
+        engine.setAlgorithm(GeneticAlgorithm.EpsilonNSGII);
+
+        engine.addOperator(new AddVm());
+        engine.addOperator(new RemoveVm());
+        engine.addOperator(new DivideLoad());
+        engine.addOperator(new CombineLoad());
+        engine.addOperator(new AssignLoadToVm());
+        engine.addOperator(new UnassignLoadToVm());
+
+        engine.addFitnessFuntion(new AssignmentFitness());
+        engine.addFitnessFuntion(new CpuUsageFitness());
+        engine.addFitnessFuntion(new LatencyFitness());
+        engine.addFitnessFuntion(new PriceFitness());
+        engine.addFitnessFuntion(new RamUsageFitness());
+        engine.addFitnessFuntion(new RedunduncyFitness());
+
+        engine.setPopulationFactory(new CloudPopulationFactory().setSize(20));
+
+        engine.setMaxGeneration(10000)  ;
 
 
+        long startTime = System.nanoTime();
+        List<Solution<Cloud>> result = engine.solve();
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+
+        for (Solution sol : result) {
+            Set af  = sol.getFitnesses();
+            Iterator iter = af.iterator();
+            while (iter.hasNext())
+            {
+                FitnessFunction tf= (FitnessFunction) iter.next();
+                System.out.print(tf.getClass().getName()+" "+ sol.getScoreForFitness(tf)+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("Duration: "+(double)duration / 1000000000.0+" seconds");
 
 
 

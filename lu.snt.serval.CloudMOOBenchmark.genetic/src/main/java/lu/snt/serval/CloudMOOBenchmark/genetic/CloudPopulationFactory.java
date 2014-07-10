@@ -2,6 +2,7 @@ package lu.snt.serval.CloudMOOBenchmark.genetic;
 
 import lu.snt.serval.cloud.Cloud;
 import lu.snt.serval.cloud.LoadBalancer;
+import lu.snt.serval.cloud.SoftwareThread;
 import lu.snt.serval.cloud.cloner.DefaultModelCloner;
 import lu.snt.serval.cloud.compare.DefaultModelCompare;
 import lu.snt.serval.cloud.impl.DefaultCloudFactory;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ace Shooting on 7/8/2014.
+ * Created by Assaad Moawad on 7/8/2014.
  */
 public class CloudPopulationFactory implements PopulationFactory<Cloud> {
 
@@ -43,7 +44,8 @@ public class CloudPopulationFactory implements PopulationFactory<Cloud> {
                 lb.setSoftwareToRunName(str.getSoftware().getName());
                 lb.setUsers(str.getUsers());
                 // We have to create reccursively the software threads and their dependencies.
-                lb.addSoftwareThreads(ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers()));
+                SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers(),cloud);
+                lb.addSoftwareThreads(st);
             }
             populations.add(cloud);
 

@@ -57,9 +57,9 @@ public class CombineLoad implements MutationOperator<Cloud> {
             SoftwareThread st1 = lb.getSoftwareThreads().get(array[0]);
             SoftwareThread st2 = lb.getSoftwareThreads().get(array[1]);
             int next=st1.getUsers()+st2.getUsers();
-            SoftwareThread st = ContextUtilities.createSoftwareThread(st1.getSoftwareName(),next);
-            ContextUtilities.terminateSoftwareThread(st1);
-            ContextUtilities.terminateSoftwareThread(st2);
+            SoftwareThread st = ContextUtilities.createSoftwareThread(st1.getSoftwareName(),next,model);
+            ContextUtilities.terminateSoftwareThread(st1,model);
+            ContextUtilities.terminateSoftwareThread(st2,model);
 
             lb.removeSoftwareThreads(st1);
             lb.removeSoftwareThreads(st2);

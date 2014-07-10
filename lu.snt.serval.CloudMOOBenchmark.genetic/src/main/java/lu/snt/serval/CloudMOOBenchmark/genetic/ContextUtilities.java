@@ -1,5 +1,6 @@
 package lu.snt.serval.CloudMOOBenchmark.genetic;
 
+import lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses.*;
 import lu.snt.serval.cloud.*;
 import lu.snt.serval.cloud.impl.DefaultCloudFactory;
 import lu.snt.serval.cloudcontext.*;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Ace Shooting on 7/9/2014.
+ * Created by Assaad Moawad on 7/9/2014.
  */
 public class ContextUtilities {
     private static DefaultCloudFactory cloudfactory = new DefaultCloudFactory();
@@ -17,6 +18,8 @@ public class ContextUtilities {
     public static CloudContext cloudContext;
     private static ArrayList<VirtualMachine> allvm=null;
     private static ResourceMetric allSoftwareResources=null;
+
+    public static final double INFINITLATENCY= 1000000;
 
 
 
@@ -30,7 +33,7 @@ public class ContextUtilities {
     }
 
     //Reccursively create software thread and threads for the dependencies
-    public static SoftwareThread createSoftwareThread(String softwareName, int users){
+    public static SoftwareThread createSoftwareThread(String softwareName, int users, Cloud model){
         SoftwareThread st=cloudfactory.createSoftwareThread();
         st.setUsers(users);
         st.setSoftwareName(softwareName);
@@ -40,9 +43,12 @@ public class ContextUtilities {
         ressourceMetric.setRam(sw.getRamPerUser()*users);
         ressourceMetric.setDisk(sw.getDiskPerUser()*users);
         ressourceMetric.setCpu(sw.getCpuPerUser()*users);
+        model.addResources(ressourceMetric);
         st.setResource(ressourceMetric);
+        model.addSoftwareThreads(st);
+
         for (Software s: sw.getDependencies()){
-            st.addSoftwareThreadsDependencies(createSoftwareThread(s.getName(),users));
+            st.addSoftwareThreadsDependencies(createSoftwareThread(s.getName(),users,model));
         }
         return st;
     }
@@ -109,8 +115,6 @@ public class ContextUtilities {
             System.out.println();
 
         }
-        System.out.println("Displaying sum of required resources: ");
-        displayResource(getAllSoftwareResources());
         System.out.println("Displaying Virtual machines Instances");
         for(VmInstance vm: cloud.getVmInstances()){
             System.out.println("-VM "+vm.getVirtualMachineName()+" ID:"+vm.getGenerated_KMF_ID()+" Remaining CPU"+ String.format("%.2f",vm.getResource().getCpu())+ " Remaining RAM: "+String.format("%.2f",vm.getResource().getRam()));
@@ -118,10 +122,39 @@ public class ContextUtilities {
                 System.out.println("---- Thread "+softwareThread.getSoftwareName()+" serving "+softwareThread.getUsers());
             }
         }
+        System.out.println("Unassigned threads: "+getUnassignedThreads(cloud,null).size()+" Total threads: "+cloud.getSoftwareThreads().size());
 
-        System.out.println("Unassigned threads: "+getUnassignedThreads(cloud,null).size());
+        System.out.println("Displaying sum of required resources: ");
+        ResourceMetric softmetric=getAllSoftwareResources();
+        displayResource(softmetric);
+        System.out.println("Displaying sum of available VM resources: ");
+        ResourceMetric vmmetric=getAllVMResources(cloud);
+        displayResource(vmmetric);
+        System.out.println();
+        System.out.println("Displaying Fitness functions: ");
+        AssignmentFitness af = new AssignmentFitness();
+        CpuUsageFitness cpuf=new CpuUsageFitness();
+        LatencyFitness lf= new LatencyFitness();
+        PriceFitness pf=new PriceFitness();
+        RamUsageFitness ramf= new RamUsageFitness();
+        RedunduncyFitness redf= new RedunduncyFitness();
+        System.out.println("Assignment: "+ String.format("%.4f",af.evaluate(cloud,null)));
+        System.out.println("CPU: "+ String.format("%.4f",cpuf.evaluate(cloud,null)));
+        System.out.println("Latency: "+ String.format("%.4f",lf.evaluate(cloud,null)));
+        System.out.println("Price: "+ String.format("%.4f",pf.evaluate(cloud,null)));
+        System.out.println("Ram: "+ String.format("%.4f",ramf.evaluate(cloud,null)));
+        System.out.println("Redunduncy: "+ String.format("%.4f",redf.evaluate(cloud,null)));
 
 
+
+
+    }
+
+    public static ResourceMetric getAllVMResources(Cloud cloud) {
+        ResourceMetric rm = cloudfactory.createResourceMetric();
+        for(VmInstance vm: cloud.getVmInstances())
+            rm=addResource(rm,vm.getResource());
+        return rm;
     }
 
     private static void displaySoftwareThread(SoftwareThread st, int i) {
@@ -207,9 +240,10 @@ public class ContextUtilities {
             return allSoftwareResources;
 
         allSoftwareResources=cloudfactory.createResourceMetric();
+        Cloud cloud = cloudfactory.createCloud();
 
         for(SoftwareToRun str: cloudContext.getSoftwarestoRun()){
-           SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers());
+           SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers(),cloud);
             allSoftwareResources=addResource(allSoftwareResources,getResource(st));
         }
         return allSoftwareResources;
@@ -226,6 +260,42 @@ public class ContextUtilities {
 
     public static ResourceMetric getAvailableResource(VmInstance vm){
         return substract(vm.getResource(), getUsedResource(vm));
+
+    }
+
+
+    public static double calculateLatency(SoftwareThread softwareThread){
+        if(softwareThread.getHost()==null)
+            return INFINITLATENCY;
+        if(softwareThread.getSoftwareThreadsDependencies().size()==0)
+            return 0;
+        double latency=0;
+        double current=0;
+        for(SoftwareThread st: softwareThread.getSoftwareThreadsDependencies()){
+            current = calculateLatency(st);
+            if(current==INFINITLATENCY)
+                return INFINITLATENCY;
+
+            //add delays between cloud providers:
+            current += getLatency(softwareThread.getHost(),st.getHost());
+            if(current>latency)
+                latency=current;
+        }
+        return latency;
+    }
+
+
+    public static double getLatency(VmInstance host, VmInstance host1) {
+       if(host==null|| host1==null)
+           return INFINITLATENCY;
+
+
+
+       for(Latency l: cloudContext.getLatencies() ) {
+           if(l.getFrom().equals(host.getCloudProviderName())&&l.getTo().equals(host1.getCloudProviderName()))
+               return l.getDelay();
+       }
+        return 0;
 
     }
 
@@ -251,22 +321,7 @@ public class ContextUtilities {
 
 
 
-    public static ArrayList<SoftwareThread> getAllThreads(Cloud model){
-        ArrayList<SoftwareThread> allthreads=new ArrayList<SoftwareThread>();
-        for(LoadBalancer lb: model.getLoadBalancers()){
-            for(SoftwareThread st: lb.getSoftwareThreads()){
-                addThreads(st, allthreads);
-            }
-        }
-        return allthreads;
-    }
 
-    private static void addThreads(SoftwareThread st, ArrayList<SoftwareThread> allthreads) {
-        allthreads.add(st);
-        for(SoftwareThread dep:st.getSoftwareThreadsDependencies()){
-            addThreads(dep, allthreads);
-        }
-    }
 
 
 
@@ -312,11 +367,15 @@ public class ContextUtilities {
     }
 
 
-    public static void terminateSoftwareThread(SoftwareThread st) {
+    public static void terminateSoftwareThread(SoftwareThread st, Cloud model) {
         VmInstance vm= st.getHost();
         if(vm!=null)
             vm.removeThreads(st);
+        ResourceMetric rm = st.getResource();
+        if(rm!=null)
+            model.removeResources(rm);
         for(SoftwareThread dep: st.getSoftwareThreadsDependencies())
-            terminateSoftwareThread(dep);
+            terminateSoftwareThread(dep,model);
+        model.removeSoftwareThreads(st);
     }
 }
