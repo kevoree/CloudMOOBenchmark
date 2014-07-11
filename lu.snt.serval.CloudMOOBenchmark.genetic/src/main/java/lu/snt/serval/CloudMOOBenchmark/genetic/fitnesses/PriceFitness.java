@@ -28,7 +28,7 @@ public class PriceFitness extends FitnessFunction<Cloud> {
 
     @Override
     public double max() {
-        return ContextUtilities.getMaxPrice();
+        return 10000;
     }
 
     @Override

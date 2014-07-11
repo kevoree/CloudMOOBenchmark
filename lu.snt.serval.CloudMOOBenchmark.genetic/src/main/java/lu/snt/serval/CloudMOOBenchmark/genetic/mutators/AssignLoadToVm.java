@@ -44,7 +44,7 @@ public class AssignLoadToVm implements MutationOperator<Cloud> {
             ResourceMetric rm = ContextUtilities.getAvailableResource(vmI);
 
             ArrayList<SoftwareThread> possible =ContextUtilities.getUnassignedThreads(model,rm);
-            System.out.println("Possible threads to add:"+ possible.size());
+            //System.out.println("Possible threads to add:"+ possible.size());
 
             if(possible.size()==0)
                 return;

@@ -224,16 +224,7 @@ public class ContextUtilities {
 
     private static double maxPrice=0;
 
-    public static double getMaxPrice(){
-        if(maxPrice==0) {
-            double max = 0;
-            ResourceMetric rm = getAllSoftwareResources();
-            VirtualMachine vm = getMaxCPUMachine();
-            double factor = Math.max(rm.getCpu() / vm.getCpu(), rm.getRam() / rm.getRam());
-            maxPrice = (factor * 10) * vm.getPrice();
-        }
-        return maxPrice;
-    }
+
 
     public static ResourceMetric getAllSoftwareResources(){
         if(allSoftwareResources!=null)

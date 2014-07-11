@@ -91,7 +91,7 @@ public class SampleRunner {
         CloudContext cc=ContextLoader.load();
         ContextUtilities.cloudContext=cc;
 
-        test();
+        //test();
 
         GeneticEngine<Cloud> engine = new GeneticEngine<Cloud>();
         engine.setAlgorithm(GeneticAlgorithm.EpsilonNSGII);
