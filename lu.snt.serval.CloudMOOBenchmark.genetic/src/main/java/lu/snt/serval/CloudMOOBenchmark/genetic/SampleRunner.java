@@ -5,6 +5,7 @@ import lu.snt.serval.CloudMOOBenchmark.genetic.mutators.*;
 import lu.snt.serval.cloud.Cloud;
 import lu.snt.serval.cloudcontext.CloudContext;
 import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
+import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
 import org.kevoree.modeling.optimization.api.mutation.MutationParameters;
 import org.kevoree.modeling.optimization.api.solution.Solution;
 import org.kevoree.modeling.optimization.engine.genetic.GeneticAlgorithm;
@@ -91,7 +92,7 @@ public class SampleRunner {
         CloudContext cc=ContextLoader.load();
         ContextUtilities.cloudContext=cc;
 
-        //test();
+    //   test();
 
         GeneticEngine<Cloud> engine = new GeneticEngine<Cloud>();
         engine.setAlgorithm(GeneticAlgorithm.EpsilonNSGII);
@@ -103,16 +104,22 @@ public class SampleRunner {
         engine.addOperator(new AssignLoadToVm());
         engine.addOperator(new UnassignLoadToVm());
 
-        engine.addFitnessFuntion(new AssignmentFitness());
-        engine.addFitnessFuntion(new CpuUsageFitness());
-        engine.addFitnessFuntion(new LatencyFitness());
-        engine.addFitnessFuntion(new PriceFitness());
-        engine.addFitnessFuntion(new RamUsageFitness());
-        engine.addFitnessFuntion(new RedunduncyFitness());
+       // engine.addFitnessFunction(new AssignmentFitness());
+        engine.addFitnessFunction(new AssignmentFitness(), 0.0, 1.0, FitnessOrientation.MAXIMIZE);
+       // engine.addFitnessFunction(new RamAvailableFitness(), 0.0, 3.0, FitnessOrientation.MAXIMIZE);
+        //engine.addFitnessFunction(new CpuAvailableFitness(),0.0,3.0,FitnessOrientation.MAXIMIZE );
+        //engine.addFitnessFunction(new CpuUsageFitness(),0.0,1.0,FitnessOrientation.MAXIMIZE);
+       // engine.addFitnessFunction(new RamUsageFitness(),0.0,1.0,FitnessOrientation.MAXIMIZE);
+
+       // engine.addFitnessFuntion(new CpuUsageFitness());
+       // engine.addFitnessFuntion(new LatencyFitness());
+      //  engine.addFitnessFuntion(new PriceFitness());
+      //  engine.addFitnessFuntion(new RamUsageFitness());
+      //  engine.addFitnessFuntion(new RedunduncyFitness());
 
         engine.setPopulationFactory(new CloudPopulationFactory().setSize(20));
 
-        engine.setMaxGeneration(10000)  ;
+        engine.setMaxGeneration(1000)  ;
 
 
         long startTime = System.nanoTime();
@@ -123,11 +130,12 @@ public class SampleRunner {
 
         for (Solution sol : result) {
             Set af  = sol.getFitnesses();
+
             Iterator iter = af.iterator();
             while (iter.hasNext())
             {
                 FitnessFunction tf= (FitnessFunction) iter.next();
-                System.out.print(tf.getClass().getName()+" "+ sol.getScoreForFitness(tf)+" ");
+                System.out.print(tf.getClass().getName().replace("lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses.","")+" "+ String.format("%.5f", sol.getRawScoreForFitness(tf))+" ");
             }
             System.out.println();
         }

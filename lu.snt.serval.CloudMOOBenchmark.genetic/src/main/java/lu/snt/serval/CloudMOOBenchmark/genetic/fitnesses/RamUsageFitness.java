@@ -16,7 +16,7 @@ import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class RamUsageFitness extends FitnessFunction<Cloud> {
+public class RamUsageFitness implements FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
@@ -30,7 +30,7 @@ public class RamUsageFitness extends FitnessFunction<Cloud> {
         return total;
     }
 
-    @Override
+  /*  @Override
     public double max() {
         return 1;
     }
@@ -43,5 +43,5 @@ public class RamUsageFitness extends FitnessFunction<Cloud> {
 
     public FitnessOrientation orientation() {
         return FitnessOrientation.MAXIMIZE;
-    }
+    }*/
 }

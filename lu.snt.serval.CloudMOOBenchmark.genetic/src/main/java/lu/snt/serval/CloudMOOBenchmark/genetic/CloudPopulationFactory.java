@@ -44,7 +44,7 @@ public class CloudPopulationFactory implements PopulationFactory<Cloud> {
                 lb.setSoftwareToRunName(str.getSoftware().getName());
                 lb.setUsers(str.getUsers());
                 // We have to create reccursively the software threads and their dependencies.
-                SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers(),cloud);
+                SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers());
                 lb.addSoftwareThreads(st);
             }
             populations.add(cloud);

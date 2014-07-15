@@ -6,6 +6,7 @@ import lu.snt.serval.cloud.impl.DefaultCloudFactory;
 import lu.snt.serval.cloudcontext.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,7 +34,7 @@ public class ContextUtilities {
     }
 
     //Reccursively create software thread and threads for the dependencies
-    public static SoftwareThread createSoftwareThread(String softwareName, int users, Cloud model){
+    public static SoftwareThread createSoftwareThread(String softwareName, int users){
         SoftwareThread st=cloudfactory.createSoftwareThread();
         st.setUsers(users);
         st.setSoftwareName(softwareName);
@@ -43,12 +44,10 @@ public class ContextUtilities {
         ressourceMetric.setRam(sw.getRamPerUser()*users);
         ressourceMetric.setDisk(sw.getDiskPerUser()*users);
         ressourceMetric.setCpu(sw.getCpuPerUser()*users);
-        model.addResources(ressourceMetric);
         st.setResource(ressourceMetric);
-        model.addSoftwareThreads(st);
 
         for (Software s: sw.getDependencies()){
-            st.addSoftwareThreadsDependencies(createSoftwareThread(s.getName(),users,model));
+            st.addSoftwareThreadsDependencies(createSoftwareThread(s.getName(),users));
         }
         return st;
     }
@@ -95,6 +94,28 @@ public class ContextUtilities {
     }
 
 
+    public static int getSoftwareThreadSize(Cloud model){
+        int total=0;
+        for(VmInstance vm: model.getVmInstances()){
+            for(SoftwareThread st: vm.getThreads()){
+                total+= getSoftwareSize(st);
+            }
+        }
+        return total;
+    }
+
+    private static int getSoftwareSize(SoftwareThread st) {
+        if(st.getSoftwareThreadsDependencies().size()==0)
+            return 1;
+        else
+        {
+            int total=1;
+            for(SoftwareThread st1: st.getSoftwareThreadsDependencies())
+                total+=getSoftwareSize(st1);
+            return total;
+        }
+
+    }
 
     //Displays for Debug purposes
 
@@ -122,7 +143,7 @@ public class ContextUtilities {
                 System.out.println("---- Thread "+softwareThread.getSoftwareName()+" serving "+softwareThread.getUsers());
             }
         }
-        System.out.println("Unassigned threads: "+getUnassignedThreads(cloud,null).size()+" Total threads: "+cloud.getSoftwareThreads().size());
+        System.out.println("Unassigned threads: "+getUnassignedThreads(cloud,null).size()+" Total threads: "+getSoftwareThreadSize(cloud));
 
         System.out.println("Displaying sum of required resources: ");
         ResourceMetric softmetric=getAllSoftwareResources();
@@ -138,11 +159,17 @@ public class ContextUtilities {
         PriceFitness pf=new PriceFitness();
         RamUsageFitness ramf= new RamUsageFitness();
         RedunduncyFitness redf= new RedunduncyFitness();
+        CpuAvailableFitness caf = new CpuAvailableFitness();
+        RamAvailableFitness raf= new RamAvailableFitness();
+
         System.out.println("Assignment: "+ String.format("%.4f",af.evaluate(cloud,null)));
-        System.out.println("CPU: "+ String.format("%.4f",cpuf.evaluate(cloud,null)));
+        System.out.println("CPU available per need: "+ String.format("%.4f",caf.evaluate(cloud,null)));
+        System.out.println("Ram available per need: "+ String.format("%.4f",raf.evaluate(cloud,null)));
+        System.out.println("CPU usage: "+ String.format("%.4f",cpuf.evaluate(cloud,null)));
+        System.out.println("Ram usage: "+ String.format("%.4f",ramf.evaluate(cloud,null)));
         System.out.println("Latency: "+ String.format("%.4f",lf.evaluate(cloud,null)));
         System.out.println("Price: "+ String.format("%.4f",pf.evaluate(cloud,null)));
-        System.out.println("Ram: "+ String.format("%.4f",ramf.evaluate(cloud,null)));
+
         System.out.println("Redunduncy: "+ String.format("%.4f",redf.evaluate(cloud,null)));
 
 
@@ -231,10 +258,9 @@ public class ContextUtilities {
             return allSoftwareResources;
 
         allSoftwareResources=cloudfactory.createResourceMetric();
-        Cloud cloud = cloudfactory.createCloud();
 
         for(SoftwareToRun str: cloudContext.getSoftwarestoRun()){
-           SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers(),cloud);
+           SoftwareThread st = ContextUtilities.createSoftwareThread(str.getSoftware().getName(),str.getUsers());
             allSoftwareResources=addResource(allSoftwareResources,getResource(st));
         }
         return allSoftwareResources;
@@ -358,15 +384,29 @@ public class ContextUtilities {
     }
 
 
-    public static void terminateSoftwareThread(SoftwareThread st, Cloud model) {
+    public static void terminateSoftwareThread(SoftwareThread st) {
         VmInstance vm= st.getHost();
         if(vm!=null)
             vm.removeThreads(st);
-        ResourceMetric rm = st.getResource();
-        if(rm!=null)
-            model.removeResources(rm);
         for(SoftwareThread dep: st.getSoftwareThreadsDependencies())
-            terminateSoftwareThread(dep,model);
-        model.removeSoftwareThreads(st);
+            terminateSoftwareThread(dep);
+    }
+
+    public static List<SoftwareThread> getSoftwareThreads(Cloud model) {
+        ArrayList<SoftwareThread> allSoftwares = new ArrayList<SoftwareThread>();
+        for(LoadBalancer lb: model.getLoadBalancers()){
+            for(SoftwareThread st: lb.getSoftwareThreads()){
+                addSoftwareThreads(allSoftwares,st);
+            }
+        }
+        return allSoftwares;
+
+    }
+
+    private static void addSoftwareThreads(ArrayList<SoftwareThread> allSoftwares, SoftwareThread st) {
+        allSoftwares.add(st);
+        for(SoftwareThread st1: st.getSoftwareThreadsDependencies()){
+            addSoftwareThreads(allSoftwares,st1);
+        }
     }
 }

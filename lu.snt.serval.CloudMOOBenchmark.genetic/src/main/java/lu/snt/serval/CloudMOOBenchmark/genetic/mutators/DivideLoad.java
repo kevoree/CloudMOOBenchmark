@@ -43,9 +43,9 @@ public class DivideLoad implements MutationOperator<Cloud> {
             int current = st.getUsers();
             int next1 = (random.nextInt(current*2)+current)/4;
             int next2 =current-next1;
-            SoftwareThread st1 = ContextUtilities.createSoftwareThread(st.getSoftwareName(),next1,model);
-            SoftwareThread st2 = ContextUtilities.createSoftwareThread(st.getSoftwareName(),next2,model);
-            ContextUtilities.terminateSoftwareThread(st,model);
+            SoftwareThread st1 = ContextUtilities.createSoftwareThread(st.getSoftwareName(),next1);
+            SoftwareThread st2 = ContextUtilities.createSoftwareThread(st.getSoftwareName(),next2);
+            ContextUtilities.terminateSoftwareThread(st);
             lb.removeSoftwareThreads(st);
             lb.addSoftwareThreads(st1);
             lb.addSoftwareThreads(st2);

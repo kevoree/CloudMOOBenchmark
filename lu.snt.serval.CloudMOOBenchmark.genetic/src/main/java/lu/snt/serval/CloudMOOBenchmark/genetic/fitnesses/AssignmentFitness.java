@@ -18,11 +18,12 @@ import java.util.List;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class AssignmentFitness extends FitnessFunction<Cloud> {
+public class AssignmentFitness implements FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
-        List<SoftwareThread> allThreads = model.getSoftwareThreads();
+        List<SoftwareThread> allThreads = ContextUtilities.getSoftwareThreads(model);
+       // System.out.println("size: "+allThreads.size());
         ArrayList<SoftwareThread> unassigned = ContextUtilities.getUnassignedThreads(model,null);
 
         int total=0;
@@ -37,10 +38,11 @@ public class AssignmentFitness extends FitnessFunction<Cloud> {
 
         double answer= (total-notAssigned);
         answer= answer/total;
+        //System.out.println(answer);
         return answer;
     }
 
-    @Override
+   /* @Override
     public double max() {
         return 1;
     }
@@ -53,5 +55,5 @@ public class AssignmentFitness extends FitnessFunction<Cloud> {
 
     public FitnessOrientation orientation() {
         return FitnessOrientation.MAXIMIZE;
-    }
+    }*/
 }

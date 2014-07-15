@@ -37,14 +37,18 @@ public class AssignLoadToVm implements MutationOperator<Cloud> {
     public void mutate(@JetValueParameter(name = "model") @NotNull Cloud model, @JetValueParameter(name = "params") @NotNull MutationParameters mutationParameters) {
         try
         {
-            if(model.getVmInstances().size()==0)
-                return;
+            /*System.out.println("Inside assign");
+            if(model.getVmInstances().size()==0){
+                System.out.println("No VM");
+                return;}
+
+            System.out.println("There is VM");*/
 
             VmInstance vmI= model.getVmInstances().get(random.nextInt(model.getVmInstances().size()));
             ResourceMetric rm = ContextUtilities.getAvailableResource(vmI);
 
             ArrayList<SoftwareThread> possible =ContextUtilities.getUnassignedThreads(model,rm);
-            //System.out.println("Possible threads to add:"+ possible.size());
+           // System.out.println("Possible threads to add:"+ possible.size());
 
             if(possible.size()==0)
                 return;

@@ -42,8 +42,6 @@ public class RemoveVm implements MutationOperator<Cloud> {
                 for(SoftwareThread st: vmInstance.getThreads()){
                     st.setHost(null);
                 }
-
-                model.removeResources(vmInstance.getResource());
                 model.removeVmInstances(vmInstance);
             }
         }

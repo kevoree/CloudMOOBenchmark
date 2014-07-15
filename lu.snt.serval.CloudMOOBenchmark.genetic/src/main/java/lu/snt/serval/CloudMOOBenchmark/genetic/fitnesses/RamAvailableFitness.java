@@ -3,8 +3,8 @@ package lu.snt.serval.CloudMOOBenchmark.genetic.fitnesses;
 
 import lu.snt.serval.CloudMOOBenchmark.genetic.ContextUtilities;
 import lu.snt.serval.cloud.Cloud;
-import lu.snt.serval.cloud.LoadBalancer;
-import lu.snt.serval.cloud.SoftwareThread;
+import lu.snt.serval.cloud.ResourceMetric;
+import lu.snt.serval.cloud.VmInstance;
 import org.kevoree.modeling.optimization.api.GenerationContext;
 import org.kevoree.modeling.optimization.api.fitness.FitnessFunction;
 import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
@@ -16,27 +16,26 @@ import org.kevoree.modeling.optimization.api.fitness.FitnessOrientation;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class LatencyFitness implements FitnessFunction<Cloud> {
+public class RamAvailableFitness implements FitnessFunction<Cloud> {
 
     @Override
     public double evaluate(Cloud model, GenerationContext<Cloud> context) {
         double total=0;
-        double count=0;
-        for(LoadBalancer lb: model.getLoadBalancers()){
-            for(SoftwareThread softwareThread: lb.getSoftwareThreads()){
-                count++;
-                total+= ContextUtilities.calculateLatency(softwareThread);
-            }
+        for(VmInstance vmInstance: model.getVmInstances()){
+            total+=vmInstance.getResource().getRam();
         }
-       if(count!=0)
-           total=total/count;
 
-        return total;
+        double ram=ContextUtilities.getAllSoftwareResources().getRam();
+
+        if(total>3*ram)
+            return 3;
+        else
+            return total/ram;
     }
 
- /*   @Override
+   /* @Override
     public double max() {
-        return ContextUtilities.INFINITLATENCY;
+        return 1;
     }
 
     @Override
@@ -46,6 +45,6 @@ public class LatencyFitness implements FitnessFunction<Cloud> {
 
 
     public FitnessOrientation orientation() {
-        return FitnessOrientation.MINIMIZE;
+        return FitnessOrientation.MAXIMIZE;
     }*/
 }
