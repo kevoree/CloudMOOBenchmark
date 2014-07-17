@@ -2,8 +2,11 @@ package lu.snt.serval.CloudMOOBenchmark.genetic.mutators;
 
 import jet.runtime.typeinfo.JetValueParameter;
 import lu.snt.serval.CloudMOOBenchmark.genetic.ContextUtilities;
-import lu.snt.serval.cloud.*;
-import lu.snt.serval.cloud.impl.DefaultCloudFactory;
+import  lu.snt.serval.cloud.Cloud;
+import  lu.snt.serval.cloud.ResourceMetric;
+import  lu.snt.serval.cloud.SoftwareThread;
+import  lu.snt.serval.cloud.VmInstance;
+import  lu.snt.serval.cloud.impl.DefaultCloudFactory;
 import org.jetbrains.annotations.NotNull;
 import org.kevoree.modeling.optimization.api.mutation.MutationOperator;
 import org.kevoree.modeling.optimization.api.mutation.MutationParameters;
@@ -22,7 +25,7 @@ import java.util.Random;
  * University of Luxembourg - Snt
  * assaad.mouawad@gmail.com
  */
-public class AssignLoadToVm implements MutationOperator<Cloud> {
+public class UnassignandReassignLoadToVm implements MutationOperator<Cloud> {
     private static DefaultCloudFactory dcf = new DefaultCloudFactory();
     private static Random random=new Random();
 
@@ -37,29 +40,26 @@ public class AssignLoadToVm implements MutationOperator<Cloud> {
     public void mutate(@JetValueParameter(name = "model") @NotNull Cloud model, @JetValueParameter(name = "params") @NotNull MutationParameters mutationParameters) {
         try
         {
-            /*System.out.println("Inside assign");
-            if(model.getVmInstances().size()==0){
-                System.out.println("No VM");
-                return;}
-
-            System.out.println("There is VM");*/
-            if (model.getVmInstances().size() == 0)
+            if(model.getVmInstances().size()==0)
                 return;
 
             VmInstance vmI= model.getVmInstances().get(random.nextInt(model.getVmInstances().size()));
+            if(vmI.getThreads().size()==0)
+                return;
+            SoftwareThread softwareThread = vmI.getThreads().get(random.nextInt(vmI.getThreads().size()));
+            vmI.removeThreads(softwareThread);
+
+            //Reassigning
             ResourceMetric rm = ContextUtilities.getAvailableResource(vmI);
 
             ArrayList<SoftwareThread> possible =ContextUtilities.getUnassignedThreads(model,rm);
-           // System.out.println("Possible threads to add:"+ possible.size());
+            // System.out.println("Possible threads to add:"+ possible.size());
 
             if(possible.size()==0)
                 return;
 
             SoftwareThread st = possible.get(random.nextInt(possible.size()));
             vmI.addThreads(st);
-
-
-
         }
         catch (Exception ex)
         {

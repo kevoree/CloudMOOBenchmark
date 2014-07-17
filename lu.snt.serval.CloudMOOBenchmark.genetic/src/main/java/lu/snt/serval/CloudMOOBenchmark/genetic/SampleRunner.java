@@ -95,17 +95,28 @@ public class SampleRunner {
     //   test();
 
         GeneticEngine<Cloud> engine = new GeneticEngine<Cloud>();
-        engine.setAlgorithm(GeneticAlgorithm.EpsilonNSGII);
+        engine.setAlgorithm(GeneticAlgorithm.HypervolumeNSGAII);
 
-        engine.addOperator(new AddVm());
+       /* engine.addOperator(new AddVm());
         engine.addOperator(new RemoveVm());
         engine.addOperator(new DivideLoad());
         engine.addOperator(new CombineLoad());
         engine.addOperator(new AssignLoadToVm());
-        engine.addOperator(new UnassignLoadToVm());
+        engine.addOperator(new UnassignLoadToVm());*/
+
+        engine.addOperator(new AddandAssignVm());
+        engine.addOperator(new AssignLoadToVm());
+        engine.addOperator(new AssignManyLoadsToVm());
+        engine.addOperator(new ChangeVm());
+        engine.addOperator(new CombineLoadandAssign());
+        engine.addOperator(new DivideLoadandAssign());
+        engine.addOperator(new RemoveVm());
+        engine.addOperator(new UnassignandReassignLoadToVm());
 
        // engine.addFitnessFunction(new AssignmentFitness());
-        engine.addFitnessFunction(new AssignmentFitness(), 0.0, 1.0, FitnessOrientation.MAXIMIZE);
+        //engine.addFitnessFunction(new AssignmentFitness(), 0.0, 1.0, FitnessOrientation.MAXIMIZE);
+        engine.addGaussianFitnessFunction(new AssignmentFitness(), 0.0, 1.0, FitnessOrientation.MAXIMIZE, 1.0, 0.15);
+        engine.addFitnessFunction(new PriceFitness(),0.0,10000,FitnessOrientation.MINIMIZE);
        // engine.addFitnessFunction(new RamAvailableFitness(), 0.0, 3.0, FitnessOrientation.MAXIMIZE);
         //engine.addFitnessFunction(new CpuAvailableFitness(),0.0,3.0,FitnessOrientation.MAXIMIZE );
         //engine.addFitnessFunction(new CpuUsageFitness(),0.0,1.0,FitnessOrientation.MAXIMIZE);
